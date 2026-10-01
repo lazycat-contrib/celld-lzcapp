@@ -13,7 +13,7 @@ application:
 services:
   celld:
     # 镜像模式：经 ghcr.1ms.run 拉取；Action 会按 delivery.mode: mirror 改写为对应镜像源地址
-    # upstream: ghcr.io/denoland/celld
+    # upstream: ghcr.io/denoland/celld:v0.6.0
     image: ghcr.1ms.run/denoland/celld:v0.6.0
     environment:
       # bucket 与凭证（安装向导填写）

@@ -1,0 +1,18 @@
+package: cloud.lazycat.app.celld
+version: 0.6.0
+name: celld
+description: Self-hosted, distributed Durable Objects — run a Cloudflare Workers application on your own machines.
+min_os_version: 1.5.0
+homepage: https://github.com/denoland/celld
+author: denoland
+license: Apache-2.0
+locales:
+  zh:
+    name: "celld"
+    description: "自托管的分布式 Durable Objects：在自己机器上跑 Cloudflare Workers 应用（Workers、Durable Objects、KV、Queues、D1、R2、Workflows、Cron、静态资源）。"
+  zh_CN:
+    name: "celld"
+    description: "自托管的分布式 Durable Objects：在自己机器上跑 Cloudflare Workers 应用（Workers、Durable Objects、KV、Queues、D1、R2、Workflows、Cron、静态资源）。"
+  en:
+    name: "celld"
+    description: "Self-hosted, distributed Durable Objects: run a Cloudflare Workers application on your own machines."

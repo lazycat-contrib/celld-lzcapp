@@ -1,0 +1,100 @@
+params:
+    - id: bucket
+      type: string
+      name: "Fleet bucket"
+      description: "S3-compatible bucket that holds deployments and cell state, e.g. s3://my-cells-bucket (gs:// and az:// are accepted too). Required."
+      default_value: ""
+
+    - id: access_key_id
+      type: secret
+      name: "Access key ID"
+      description: "AWS_ACCESS_KEY_ID for the bucket: R2/S3 access key id, or the GCS/Azure equivalent."
+      default_value: ""
+
+    - id: secret_access_key
+      type: secret
+      name: "Secret access key"
+      description: "AWS_SECRET_ACCESS_KEY for the bucket."
+      default_value: ""
+
+    - id: session_token
+      type: secret
+      name: "Session token"
+      description: "AWS_SESSION_TOKEN, only for temporary credentials. Leave empty otherwise."
+      default_value: ""
+      optional: true
+
+    - id: endpoint
+      type: string
+      name: "S3 endpoint"
+      description: "S3-compatible endpoint, e.g. https://ACCOUNT.r2.cloudflarestorage.com. Leave empty for AWS S3."
+      default_value: ""
+      optional: true
+
+    - id: region
+      type: string
+      name: "Region"
+      description: "Bucket region. Use auto for Cloudflare R2, leave us-east-1 for AWS S3."
+      default_value: "us-east-1"
+      optional: true
+
+locales:
+    zh:
+        bucket:
+            name: "Fleet bucket"
+            description: "存放部署与 cell 状态的 S3 兼容 bucket，例如 s3://my-cells-bucket（也接受 gs:// 与 az://）。必填。"
+        access_key_id:
+            name: "Access Key ID"
+            description: "bucket 的 AWS_ACCESS_KEY_ID：R2/S3 的访问密钥 id，GCS/Azure 填对应的身份。"
+        secret_access_key:
+            name: "Secret Access Key"
+            description: "bucket 的 AWS_SECRET_ACCESS_KEY。"
+        session_token:
+            name: "Session Token"
+            description: "AWS_SESSION_TOKEN，仅临时凭证需要填；长期密钥留空。"
+        endpoint:
+            name: "S3 Endpoint"
+            description: "S3 兼容地址，例如 https://ACCOUNT.r2.cloudflarestorage.com；用 AWS S3 就留空。"
+        region:
+            name: "Region"
+            description: "bucket 所在区域。Cloudflare R2 填 auto；AWS S3 保持 us-east-1。"
+
+    zh_CN:
+        bucket:
+            name: "Fleet bucket"
+            description: "存放部署与 cell 状态的 S3 兼容 bucket，例如 s3://my-cells-bucket（也接受 gs:// 与 az://）。必填。"
+        access_key_id:
+            name: "Access Key ID"
+            description: "bucket 的 AWS_ACCESS_KEY_ID：R2/S3 的访问密钥 id，GCS/Azure 填对应的身份。"
+        secret_access_key:
+            name: "Secret Access Key"
+            description: "bucket 的 AWS_SECRET_ACCESS_KEY。"
+        session_token:
+            name: "Session Token"
+            description: "AWS_SESSION_TOKEN，仅临时凭证需要填；长期密钥留空。"
+        endpoint:
+            name: "S3 Endpoint"
+            description: "S3 兼容地址，例如 https://ACCOUNT.r2.cloudflarestorage.com；用 AWS S3 就留空。"
+        region:
+            name: "Region"
+            description: "bucket 所在区域。Cloudflare R2 填 auto；AWS S3 保持 us-east-1。"
+
+    en:
+        bucket:
+            name: "Fleet bucket"
+            description: "S3-compatible bucket for deployments and cell state, e.g. s3://my-cells-bucket."
+        access_key_id:
+            name: "Access key ID"
+            description: "AWS_ACCESS_KEY_ID for the bucket."
+        secret_access_key:
+            name: "Secret access key"
+            description: "AWS_SECRET_ACCESS_KEY for the bucket."
+        session_token:
+            name: "Session token"
+            description: "AWS_SESSION_TOKEN, only for temporary credentials."
+        endpoint:
+            name: "S3 endpoint"
+            description: "S3-compatible endpoint, e.g. https://ACCOUNT.r2.cloudflarestorage.com; leave empty for AWS S3."
+        region:
+            name: "Region"
+            description: "Bucket region: auto for R2, us-east-1 for AWS S3."

@@ -1,0 +1,40 @@
+version: 1
+
+project:
+  root: .
+  build_config: lzc-build.yml
+  package_file: package.yml
+  output: dist/celld.lpk
+  target_arch: amd64
+
+update:
+  strategy: publish
+  allow_downgrade: false
+  version_source:
+    type: image
+    image: celld
+
+build:
+  toolchains: []
+  run_buildscript: false
+
+images:
+  - id: celld
+    target: service
+    service: celld
+    source: ghcr.io/denoland/celld
+    channel: stable
+    sort: semver
+    tag_regex: '^v[0-9]+\.[0-9]+\.[0-9]+$'
+    delivery:
+      # 镜像模式：只用公共镜像源，不进官方商店（官方商店必须 lazycat 模式）
+      mode: mirror
+
+stores:
+  official:
+    enabled: false
+  private:
+    enabled: true
+    skip_if_version_exists: true
+    name: celld
+    summary: "celld 懒猫微服打包（镜像模式）：自托管的分布式 Durable Objects，桶由你提供。"

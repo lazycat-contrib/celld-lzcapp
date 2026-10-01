@@ -1,0 +1,49 @@
+application:
+  subdomain: celld
+  multi_instance: false
+  # 8080 是 Worker 流量（部署上去的 Worker 由它对外服务）；8081 是 operator/peer 监听，
+  # 上游要求它留在内网，这里不配置，沿用默认的回环临时端口
+  upstreams:
+    - location: /
+      backend: http://celld:8080
+  # Worker 流量本来就是给外部访问的（webhook、分享链接等），因此关闭微服账号鉴权；
+  # 部署接口不在 HTTP 上（celld deploy 直接写 bucket），8080 上没有运维面
+  public_path:
+    - /
+services:
+  celld:
+    # 镜像模式：经 ghcr.1ms.run 拉取；Action 会按 delivery.mode: mirror 改写为对应镜像源地址
+    # upstream: ghcr.io/denoland/celld
+    image: ghcr.1ms.run/denoland/celld:v0.6.0
+    environment:
+      # bucket 与凭证（安装向导填写）
+      CELLD_BUCKET: '{{ .U.bucket }}'
+      S3_ENDPOINT: '{{ .U.endpoint }}'
+      AWS_REGION: '{{ .U.region }}'
+      AWS_ACCESS_KEY_ID: '{{ .U.access_key_id }}'
+      AWS_SECRET_ACCESS_KEY: '{{ .U.secret_access_key }}'
+      AWS_SESSION_TOKEN: '{{ .U.session_token }}'
+      # 不设的话只监听回环，微服入口进不来
+      CELLD_ADDR: 0.0.0.0:8080
+      # 本地 SQLite/复制的工作目录（在下面的持久目录里）
+      CELLD_WATCH: /var/lib/celld/state
+      # 入口是反向代理，取真实访客地址
+      CELLD_TRUST_FORWARDED_HEADERS: "true"
+    binds:
+      - /lzcapp/var/celld:/var/lib/celld
+usage: |
+  celld 是自托管的分布式 Durable Objects：每台机器跑一个 celld 进程，同一 bucket 的节点组成一个 fleet，
+  bucket 里放着部署、cell 状态和所有权记录。
+
+  【部署应用】
+  在你自己的电脑上（需要 esbuild 在 PATH 上）：
+      celld deploy . --bucket <本应用里填的同一个 bucket> [--endpoint ...] [--region ...]
+  部署写进 bucket，这里的节点会从 bucket 里拿到它并开始服务。
+
+  【访问】
+  部署上去的 Worker 直接走应用域名（https://你的域名/...）。
+  注意：单节点没有别的节点可同步，每次写入都要等 bucket，比多节点慢；多节点的 fleet 在当前打包里不支持
+  （内部监听留在容器回环上）。
+
+  【数据】
+  本地运行时状态（CELLD_WATCH 指向的目录）持久化在 /lzcapp/var/celld，长期状态在你自己填的 bucket 里。

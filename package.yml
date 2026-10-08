@@ -1,5 +1,5 @@
 package: cloud.lazycat.app.celld
-version: 0.6.1
+version: 0.6.2
 name: celld
 description: Self-hosted, distributed Durable Objects — run a Cloudflare Workers application on your own machines.
 min_os_version: 1.5.0
